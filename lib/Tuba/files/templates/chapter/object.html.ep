@@ -4,6 +4,15 @@
 <h2>Chapter: <%= $chapter->identifier %></h2>
 </center>
 
+<meta name="citation_title" content="<%= $chapter->report->title %> : <%= $chapter->title %>">
+% if ($chapter->report->publication_year) {
+<meta name="citation_date" content="<%= $chapter->report->publication_year %>">
+% }
+% for my $person ($chapter->all_people(role_regex => 'editor|author')) {
+<meta name="citation_author" content="<%= $person->last_name %>, <%= $person->first_name %>">
+% }
+
+
 % if (user_can('update')) {
 %= include 'history_modal';
 

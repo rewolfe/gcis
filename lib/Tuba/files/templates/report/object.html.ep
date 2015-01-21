@@ -8,6 +8,14 @@
     <h2>Report : <%= $report->identifier %>
 </center>
 
+<meta name="citation_title" content="<%= $report->title %>">
+% if ($report->publication_year) {
+<meta name="citation_date" content="<%= $report->publication_year %>">
+% }
+% for my $person ($report->all_people(role_regex => 'editor|author')) {
+<meta name="citation_author" content="<%= $person->last_name %>, <%= $person->first_name %>">
+% }
+
 % unless (param 'no_header') {
 
     % if ($object->can('identifier') && user_can('update')) {
